@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  deemon:
+    image: deemon:latest
+    container_name: deemon
+    build: .
+    environment:
+      - SLEEP_TIME=1h
+    volumes:
+      - /path/to/config:/config
+      - /path/to/deemix:/deemix
+      - /path/to/artists.txt:/artists.txt # Make sure to make/touch this file before running the container
+      - /path/to/downloads:/downloads
