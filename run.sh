@@ -1,11 +1,19 @@
 #!/bin/bash
-while true
+
+cleanup ()
+{
+kill -s SIGTERM $!
+exit 0
+}
+
+trap cleanup SIGINT SIGTERM
+
+while [ 1 ]
 do
-    echo "script: Import monitored.txt"
-    python3 -m deemon monitor --import /monitored.txt
+    echo "script: Import monitored"
+    deemon monitor --import /config/monitored
     echo "script: Download monitored"
-    python3 -m deemon refresh
-    echo "script: Sleeping for ($SLEEP_TIME)"
-    sleep $SLEEP_TIME
-    echo "script: Loop to the top"
+    deemon refresh
+    echo "script: Sleeping for $SLEEP_TIME (SLEEP_TIME env)"
+    sleep $SLEEP_TIME & wait
 done
