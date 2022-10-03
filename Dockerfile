@@ -7,7 +7,7 @@ RUN pip3 install --no-cache --upgrade pip deemon
 RUN mkdir /config /deemix /downloads /import /root/.config && \
 ln -s /config /root/.config/deemon && ln -s /deemix /root/.config/deemix
 
-ENV SLEEP_TIME=1h
+ENV SLEEP_TIME=24h
 
 COPY run.sh /run.sh
 
