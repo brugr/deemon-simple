@@ -2,8 +2,8 @@ version: '3'
 
 services:
   deemon:
-    image: ghcr.io/brugr/deemon:latest
-    container_name: deemon
+    image: ghcr.io/brugr/deemon-simple:latest
+    container_name: deemon-simple
     environment:
       - SLEEP_TIME=24h
     volumes:
