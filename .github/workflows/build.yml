@@ -4,9 +4,8 @@ on:
     paths:
       - 'Containerfile'
       - 'requirements.txt'
-  schedule:
-    - cron: '0 0 * * 0'
   workflow_dispatch:
+  workflow_call:
   
 env:
     IMAGE_NAME: deemon-simple

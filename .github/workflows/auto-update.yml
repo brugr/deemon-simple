@@ -1,0 +1,32 @@
+name: Auto update
+on:
+  schedule:
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  check:
+    name: Check if out-of-date
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.6.0
+
+      - name: Check parent image out-of-date
+        id: check
+        uses: twiddler/is-my-docker-parent-image-out-of-date@v1
+        with:
+          parent-image: python:slim
+          my-image: ghcr.io/brugr/deemon-simple:latest
+
+      - name: Echo output
+        run: | 
+          echo "${{ steps.check.outputs.out-of-date }}"
+
+    outputs:
+      out-of-date: ${{ steps.check.outputs.out-of-date }}
+
+  build:
+    needs: [check]
+    uses: ./.github/workflows/build.yml
+    if: needs.check.outputs.out-of-date == 'true'
